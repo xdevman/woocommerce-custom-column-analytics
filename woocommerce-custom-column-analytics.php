@@ -28,9 +28,9 @@ function add_extension_register_script() {
 
     wp_register_style(
         'woocommerce-custom-column-analytics',
-        plugins_url( '/build/index.css', __FILE__ ), // Points to the compiled CSS file
+        plugins_url( '/build/style.css', __FILE__ ), // Points to the compiled CSS file
         array(),
-        filemtime( dirname( __FILE__ ) . '/build/index.css' )
+        filemtime( dirname( __FILE__ ) . '/build/style.css' )
     );
 
     wp_enqueue_script( 'woocommerce-custom-column-analytics' );
