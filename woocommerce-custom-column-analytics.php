@@ -72,3 +72,38 @@ add_filter('woocommerce_report_orders_prepare_export_item', function ($export_it
     $export_item['payment_method'] = $item['payment_method'];
     return $export_item;
 }, 10, 2);
+
+// Add billing phone to the WooCommerce Analytics Orders data
+add_filter('woocommerce_analytics_orders_select_query', function ($results, $args) {
+    if ($results && isset($results->data) && !empty($results->data)) {
+        foreach ($results->data as $key => $result) {
+            $order = wc_get_order($result['order_id']);
+            
+            // Retrieve billing phone from order metadata
+            $billing_phone = $order ? $order->get_meta('_billing_phone') : '';
+
+            // Add billing phone to the results
+            $results->data[$key]['billing_phone'] = $billing_phone ? $billing_phone : __('No Value', 'woocommerce-custom-column-analytics');
+        }
+    }
+
+    return $results;
+}, 10, 2);
+
+
+// Add billing ID Card to the WooCommerce Analytics Orders data
+add_filter('woocommerce_analytics_orders_select_query', function ($results, $args) {
+    if ($results && isset($results->data) && !empty($results->data)) {
+        foreach ($results->data as $key => $result) {
+            $order = wc_get_order($result['order_id']);
+            
+            // Retrieve billing ID Card from order metadata
+            $billing_idcard = $order ? $order->get_meta('_billing_idcard') : '';
+
+            // Add billing ID Card to the results
+            $results->data[$key]['billing_idcard'] = $billing_idcard ? $billing_idcard : __('No Value', 'woocommerce-custom-column-analytics');
+        }
+    }
+
+    return $results;
+}, 10, 2);
